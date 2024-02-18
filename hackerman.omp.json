@@ -1,0 +1,123 @@
+{
+  "$schema": "https://raw.githubusercontent.com/JanDeDobbeleer/oh-my-posh/main/themes/schema.json",
+  "version": 2,
+  "blocks": [
+    {
+      "type": "prompt",
+      "alignment": "left",
+      "segments": [
+        {
+          "type": "text",
+          "style": "plain",
+          "foreground": "#3ce6bf",
+          "template": "\u256d─[<#ffffff>\ueb99 </>{{ .UserName }}<#ffffff> \uf108</> {{ .HostName }}]"
+        },
+        {
+          "type": "path",
+          "style": "plain",
+          "foreground": "#f48fb1",
+          "template": "[<#ffffff>\ue5ff</> ./{{ .Path }}] ",
+          "properties": {
+            "folder_separator_icon": "\\",
+            "home_icon": "\u5b85",
+            "style": "folder"
+          }
+        },
+        {
+          "type": "git",
+          "style": "plain",
+          "foreground": "#62beff",
+          "template": "[<#ffffff>{{.UpstreamIcon}}</>{{ .HEAD }}{{if .BranchStatus }} {{ .BranchStatus }}{{ end }}{{ if .Working.Changed }} <#ffffff>\uf044</> {{ .Working.String }}{{ end }}{{ if and (.Working.Changed) (.Staging.Changed) }} |{{ end }}{{ if .Staging.Changed }} <#ffffff>\uf046</> {{ .Staging.String }}{{ end }}{{ if gt .StashCount 0 }} <#ffffff>\ueb4b</> {{ .StashCount }}{{ end }}]",
+          "properties": {
+            "branch_identical_icon": "\u2261",
+            "fetch_status": true,
+            "powerline_symbol": "\ue0b0",
+            "fetch_stash_count": true,
+            "fetch_upstream_icon": true
+          }
+        },
+        {
+          "foreground": "#878787",
+          "properties": {
+            "command": "git log --pretty=format:%cr -1 || date +%H:%M:%S",
+            "shell": "powershell"
+          },
+          "style": "plain",
+          "template": " <i>~ {{ .Output }} </>",
+          "type": "command"
+        },
+        {
+          "type": "python",
+          "style": "powerline",
+          "foreground": "#b1ff4f",
+          "template": "[🐍 {{ if .Error }}{{ .Error }}{{ else }}{{ if .Venv }}{{ .Venv }} {{ end }}{{ .Full }}{{ end }}] "
+        },
+        {
+          "type": "node",
+          "style": "plain",
+          "foreground": "#98C379",
+          "template": "<#ffffff>\u25e6</> ☢{{ if .PackageManagerIcon }}{{ .PackageManagerIcon }} {{ end }}{{ .Full }} ",
+          "properties": {
+            "fetch_version": true
+          }
+        }
+      ],
+      "newline": true
+    },
+    {
+      "type": "prompt",
+      "alignment": "right",
+      "segments": [
+        {
+          "type": "executiontime",
+          "style": "plain",
+          "foreground": "#4dd0e1",
+          "template": " [<#ffffff>\uf252 </>{{ .FormattedMs }} | ",
+          "properties": {
+            "style": "austin",
+            "threshold": 0
+          }
+        },
+        {
+          "template": "<#ffffff>\ue266</> RAM: {{ (div ((sub .PhysicalTotalMemory .PhysicalFreeMemory)|float64) 1073741824.0) }}/{{ (div .PhysicalTotalMemory 1073741824.0) }}Gb | <#ffffff>\uf49b</> CPU: {{ round .PhysicalPercentUsed .Precision }}%]",
+          "type": "sysinfo"
+        }
+      ]
+    },
+    {
+      "type": "prompt",
+      "alignment": "left",
+      "segments": [
+        {
+          "type": "text",
+          "style": "plain",
+          "foreground": "#3ce6bf",
+          "template": "\u2570─$ "
+        }
+      ],
+      "newline": true
+    },
+    {
+      "type": "rprompt",
+      "alignment": "right",
+      "segments": [
+
+        {
+          "type": "exit",
+          "style": "plain",
+          "foreground": "#fb0207",
+          "template": " ××× "
+        },
+        {
+          "type": "time",
+          "style": "plain",
+          "foreground": "#81c784",
+          "template": "[<#fff>\uf073</> {{ .CurrentDate | date .Format }}]",
+          "properties": {
+            "time_format": "Monday, 15:04:05"
+          }
+        }
+      ]
+    }
+  ]
+}
